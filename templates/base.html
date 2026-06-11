@@ -2,15 +2,119 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Compuedu Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compuedu | Platform</title>
+    <!-- Importación de fuentes premium: Playfair Display para títulos y Inter para lectura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #141414;
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --accent: #c5a880; /* Tono bronce/dorado del video */
+            --accent-hover: #b3966e;
+            --border: #242424;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--var-bg-color, var(--bg-color));
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Barra de navegación superior fija */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background-color: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .btn-nav {
+            background-color: transparent;
+            color: var(--text-main) !important;
+            border: 1px solid var(--text-main);
+            padding: 8px 18px;
+            font-size: 0.8rem !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color) !important;
+        }
+
+        main {
+            padding-top: 80px; /* Evita que el header tape el contenido */
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('index') }}">Inicio</a> | 
-        <a href="{{ url_for('registro') }}">Registro</a> | 
-        <a href="{{ url_for('usuarios') }}">Ver Usuarios</a>
-    </nav>
-    <hr>
-    {% block content %} {% endblock %}
+
+    <header>
+        <a href="{{ url_for('index') }}" class="logo">COMPUEDU</a>
+        <nav class="nav-links">
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('usuarios') }}">Servicios</a>
+            <a href="#">Sobre Nosotros</a>
+            <a href="{{ url_for('registro') }}" class="btn-nav">Consultar</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+
 </body>
 </html>

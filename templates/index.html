@@ -1,5 +1,192 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Página Principal</h1>
-<p>Bienvenido al sistema de gestión.</p>
+
+<style>
+    /* Sección Principal Estilo Hero */
+    .hero-section {
+        position: relative;
+        height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 20px;
+        background: radial-gradient(circle, rgba(20,20,20,0.4) 0%, rgba(13,13,13,1) 85%);
+    }
+
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        font-weight: 400;
+        letter-spacing: 12px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        color: var(--text-main);
+    }
+
+    .hero-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 40px;
+    }
+
+    .hero-divider {
+        width: 60px;
+        height: 1px;
+        background-color: var(--accent);
+        margin-bottom: 40px;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        max-width: 600px;
+    }
+
+    /* Sección de Contenido Inferior (Tarjetas) */
+    .content-section {
+        padding: 60px 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    </style>
+
+    <style>
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 40px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 20px;
+    }
+
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .section-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.3s;
+    }
+
+    .section-link:hover {
+        color: var(--text-main);
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 250px;
+        transition: all 0.4s ease;
+    }
+
+    .card:hover {
+        border-color: var(--accent);
+        transform: translateY(-5px);
+    }
+
+    .card-meta {
+        font-size: 0.75rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+    }
+
+    .card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 15px;
+    }
+
+    .card-text {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+
+    .card-action {
+        color: var(--text-main);
+        text-decoration: none;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+</style>
+
+<!-- HERO SECTION (Inspirado en la pantalla de inicio del video) -->
+<div class="hero-section">
+    <h1 class="hero-title">COMPUEDU</h1>
+    <p class="hero-subtitle">PLATFORM</p>
+    <div class="hero-divider"></div>
+    <p class="hero-description">Preparando una experiencia académica y tecnológica excepcional</p>
+</div>
+
+<!-- CONTENT SECTION (Inspirado en las secciones de tarjetas inferiores) -->
+<div class="content-section">
+    <div class="section-header">
+        <h2 class="section-title">Encuentra Tu Espacio Perfecto</h2>
+        <a href="{{ url_for('registro') }}" class="section-link">Explorar Módulos &rarr;</a>
+    </div>
+
+    <div class="grid-container">
+        <!-- Tarjeta 1 -->
+        <div class="card">
+            <div>
+                <p class="card-meta">Módulo 01 / Sistema</p>
+                <h3 class="card-title">Gestión de Usuarios</h3>
+                <p class="card-text">Formularios optimizados para el almacenamiento seguro y persistencia de información en arquitectura relacional.</p>
+            </div>
+            <a href="{{ url_for('registro') }}" class="card-action">Ir al registro &rarr;</a>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="card">
+            <div>
+                <p class="card-meta">Módulo 02 / Datos</p>
+                <h3 class="card-title">Consulta de Información</h3>
+                <p class="card-text">Visualización de registros procesados directamente desde la infraestructura centralizada de PostgreSQL.</p>
+            </div>
+            <a href="{{ url_for('usuarios') }}" class="card-action">Ver registros &rarr;</a>
+        </div>
+
+        <!-- Tarjeta 3 -->
+        <div class="card">
+            <div>
+                <p class="card-meta">Módulo 03 / Nube</p>
+                <h3 class="card-title">Despliegue Continuo</h3>
+                <p class="card-text">Sincronización automatizada con la plataforma Render bajo entornos virtuales de producción aislados.</p>
+            </div>
+            <a href="#" class="card-action">Ver documentación &rarr;</a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
