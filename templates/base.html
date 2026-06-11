@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Compuedu Platform</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a> | 
+        <a href="{{ url_for('registro') }}">Registro</a> | 
+        <a href="{{ url_for('usuarios') }}">Ver Usuarios</a>
+    </nav>
+    <hr>
+    {% block content %} {% endblock %}
+</body>
+</html>
