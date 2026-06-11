@@ -60,8 +60,9 @@ def registro():
             conn = get_db_connection()
             cur = conn.cursor()
             
+            # Corrección de 'programme' a 'programa' para igualar la BD
             cur.execute('''
-                INSERT INTO estudiantes (documento, nombre, correo, programme, ficha) 
+                INSERT INTO estudiantes (documento, nombre, correo, programa, ficha) 
                 VALUES (%s, %s, %s, %s, %s)
             ''', (documento, nombre, correo, programa, ficha))
             
@@ -71,7 +72,6 @@ def registro():
             return redirect(url_for('usuarios'))
             
         except psycopg2.errors.UniqueViolation as unique_error:
-            # Captura específicamente la duplicidad de llaves y avisa de manera controlada
             print(f"Intento de duplicación controlado: {str(unique_error)}", file=sys.stderr)
             return f'''
             <div style="background:#141414; border:1px solid #ffaa00; padding:30px; font-family:sans-serif; color:#fff; text-align:center; margin:50px auto; max-width:500px;">
@@ -94,7 +94,6 @@ def usuarios():
     conn.close()
     return render_template('usuarios.html', usuarios=lista_usuarios)
 
-# MANEJADOR GLOBAL DE ERRORES PARA DEPURACIÓN EN PANTALLA
 @app.errorhandler(Exception)
 def handle_exception(e):
     exc_type, exc_value, exc_traceback = sys.exc_info()
