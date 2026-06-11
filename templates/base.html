@@ -19,26 +19,26 @@
             --border: #242424;
         }
 
-        /* PANTALLA DE CARGA (PRELOADER) */
+        /* ANIMACIÓN DE CARGA (PRELOADER) */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: #050505; /* Negro absoluto más profundo */
+            background-color: #050505;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 99999; /* Por encima de cualquier componente */
+            z-index: 99999;
             transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s;
         }
 
         .preloader-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
-            color: var(--text-main);
+            color: #ffffff;
             letter-spacing: 14px;
             text-transform: uppercase;
             margin-bottom: 20px;
@@ -49,18 +49,17 @@
         .preloader-subtitle {
             font-family: 'Playfair Display', serif;
             font-size: 0.85rem;
-            color: var(--accent);
+            color: #c5a880;
             letter-spacing: 4px;
             text-transform: uppercase;
             opacity: 0;
             animation: fadeInSubtitle 2.5s infinite ease-in-out 1.2s;
         }
 
-        /* Animaciones de entrada de texto */
         @keyframes fadeInText {
             to {
                 opacity: 1;
-                letter-spacing: 16px; /* Efecto sutil de expansión */
+                letter-spacing: 16px;
             }
         }
 
@@ -69,19 +68,17 @@
             50% { opacity: 1; }
         }
 
-        /* Clase contenedora que activa la salida */
         #preloader.fade-out {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
 
-        /* EVITAR SCROLL MIENTRAS CARGA */
         body.loading {
             overflow: hidden;
         }
 
-        /* RESTO DE ESTILOS GENERALES */
+        /* ESTILOS GENERALES DE LA PLATAFORMA */
         * {
             margin: 0;
             padding: 0;
@@ -89,8 +86,8 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #0d0d0d;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
@@ -107,7 +104,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #242424;
             z-index: 1000;
         }
 
@@ -116,7 +113,7 @@
             font-size: 1.5rem;
             font-weight: 600;
             letter-spacing: 2px;
-            color: var(--text-main);
+            color: #ffffff;
             text-decoration: none;
         }
 
@@ -127,7 +124,7 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: #8e8e93;
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 400;
@@ -136,13 +133,13 @@
         }
 
         .nav-links a:hover {
-            color: var(--text-main);
+            color: #ffffff;
         }
 
         .btn-nav {
             background-color: transparent;
-            color: var(--text-main) !important;
-            border: 1px solid var(--text-main);
+            color: #ffffff !important;
+            border: 1px solid #ffffff;
             padding: 8px 18px;
             font-size: 0.8rem !important;
             text-transform: uppercase;
@@ -151,8 +148,8 @@
         }
 
         .btn-nav:hover {
-            background-color: var(--text-main);
-            color: var(--bg-color) !important;
+            background-color: #ffffff;
+            color: #0d0d0d !important;
         }
 
         main {
@@ -161,9 +158,8 @@
         }
     </style>
 </head>
-<body class="loading"> <!-- Inicia bloqueando el scroll -->
+<body class="loading">
 
-    <!-- CONTENEDOR ANMACIÓN DE CARGA -->
     <div id="preloader">
         <div class="preloader-title">COMPUEDU</div>
         <div class="preloader-subtitle">Preparando una experiencia excepcional</div>
@@ -183,20 +179,14 @@
         {% block content %} {% endblock %}
     </main>
 
-    <!-- CONTROLADOR JAVASCRIPT DE SALIDA -->
     <script>
         window.addEventListener('load', function() {
             const preloader = document.getElementById('preloader');
-            
-            // Mantenemos la pantalla visible un breve instante para apreciar la animación
             setTimeout(function() {
                 preloader.classList.add('fade-out');
                 document.body.classList.remove('loading');
-            }, 1400); // 1.4 segundos de retraso controlado
+            }, 1400); 
         });
     </script>
 </body>
 </html>
-
-{% extends 'base.html' %}
-{% block content %}
