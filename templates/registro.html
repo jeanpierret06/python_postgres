@@ -1,13 +1,101 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Formulario de Registro</h1>
-<form method="POST">
-    <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" id="nombre" required><br><br>
-    
-    <label for="email">Correo Electrónico:</label>
-    <input type="email" name="email" id="email" required><br><br>
-    
-    <button type="submit">Registrar</button>
-</form>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 40px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+    }
+
+    .form-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+        margin-bottom: 8px;
+    }
+
+    .form-group input {
+        background-color: var(--bg-color);
+        border: 1px solid var(--border);
+        padding: 12px;
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .btn-submit {
+        background-color: transparent;
+        color: var(--text-main);
+        border: 1px solid var(--accent);
+        padding: 12px 24px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        background-color: var(--accent);
+        color: var(--bg-color);
+    }
+</style>
+
+<div class="form-container">
+    <h2 class="form-title">Formulario de Registro</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="documento">Documento de Identidad</label>
+            <input type="text" name="documento" id="documento" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text" name="nombre" id="nombre" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="correo">Correo Electrónico</label>
+            <input type="email" name="correo" id="correo" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="programa">Programa de Formación</label>
+            <input type="text" name="programa" id="programa" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="ficha">Ficha de Caracterización</label>
+            <input type="text" name="ficha" id="ficha" required autocomplete="off">
+        </div>
+        
+        <button type="submit" class="btn-submit">Registrar Usuario</button>
+    </form>
+</div>
+
 {% endblock %}

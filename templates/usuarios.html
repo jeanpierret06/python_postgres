@@ -1,22 +1,83 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Consulta de Información</h1>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for usuario in usuarios %}
-        <tr>
-            <td>{{ usuario.id }}</td>
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.email }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<style>
+    .table-container {
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .table-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 15px 20px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .custom-table th {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+        font-weight: 500;
+        background-color: #1a1a1a;
+    }
+
+    .custom-table td {
+        font-size: 0.9rem;
+        color: var(--text-main);
+    }
+
+    .custom-table tr:hover {
+        background-color: #1c1c1c;
+    }
+</style>
+
+<div class="table-container">
+    <h2 class="table-title">Consulta de Información</h2>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Programa</th>
+                <th>Ficha</th>
+                <th>Fecha Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.documento }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.correo }}</td>
+                <td>{{ usuario.programa }}</td>
+                <td>{{ usuario.ficha }}</td>
+                <td>{{ usuario.fecha_registro }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}
+
+{% extends 'base.html' %}
+{% block content %}
