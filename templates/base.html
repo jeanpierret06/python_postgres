@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compuedu | Platform</title>
-    <!-- Importación de fuentes premium: Playfair Display para títulos y Inter para lectura -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght=0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -15,11 +14,74 @@
             --card-bg: #141414;
             --text-main: #ffffff;
             --text-muted: #8e8e93;
-            --accent: #c5a880; /* Tono bronce/dorado del video */
+            --accent: #c5a880; 
             --accent-hover: #b3966e;
             --border: #242424;
         }
 
+        /* PANTALLA DE CARGA (PRELOADER) */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #050505; /* Negro absoluto más profundo */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999; /* Por encima de cualquier componente */
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s;
+        }
+
+        .preloader-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-main);
+            letter-spacing: 14px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInText 1.2s forwards 0.3s;
+        }
+
+        .preloader-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInSubtitle 2.5s infinite ease-in-out 1.2s;
+        }
+
+        /* Animaciones de entrada de texto */
+        @keyframes fadeInText {
+            to {
+                opacity: 1;
+                letter-spacing: 16px; /* Efecto sutil de expansión */
+            }
+        }
+
+        @keyframes fadeInSubtitle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Clase contenedora que activa la salida */
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* EVITAR SCROLL MIENTRAS CARGA */
+        body.loading {
+            overflow: hidden;
+        }
+
+        /* RESTO DE ESTILOS GENERALES */
         * {
             margin: 0;
             padding: 0;
@@ -27,14 +89,13 @@
         }
 
         body {
-            background-color: var(--var-bg-color, var(--bg-color));
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Barra de navegación superior fija */
         header {
             position: fixed;
             top: 0;
@@ -95,12 +156,18 @@
         }
 
         main {
-            padding-top: 80px; /* Evita que el header tape el contenido */
+            padding-top: 80px; 
             min-height: 100vh;
         }
     </style>
 </head>
-<body>
+<body class="loading"> <!-- Inicia bloqueando el scroll -->
+
+    <!-- CONTENEDOR ANMACIÓN DE CARGA -->
+    <div id="preloader">
+        <div class="preloader-title">COMPUEDU</div>
+        <div class="preloader-subtitle">Preparando una experiencia excepcional</div>
+    </div>
 
     <header>
         <a href="{{ url_for('index') }}" class="logo">COMPUEDU</a>
@@ -116,5 +183,20 @@
         {% block content %} {% endblock %}
     </main>
 
+    <!-- CONTROLADOR JAVASCRIPT DE SALIDA -->
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            
+            // Mantenemos la pantalla visible un breve instante para apreciar la animación
+            setTimeout(function() {
+                preloader.classList.add('fade-out');
+                document.body.classList.remove('loading');
+            }, 1400); // 1.4 segundos de retraso controlado
+        });
+    </script>
 </body>
 </html>
+
+{% extends 'base.html' %}
+{% block content %}
