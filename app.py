@@ -22,12 +22,10 @@ def init_db():
     try:
         conn = get_db_connection()
         cur = conn.cursor()
-        
-        # Forzar la creación o verificación sobre la tabla real 'estudiantes'
         cur.execute('''
             CREATE TABLE IF NOT EXISTS estudiantes (
                 id SERIAL PRIMARY KEY,
-                documento VARCHAR(50) NOT NULL,
+                documento VARCHAR(50) UNIQUE NOT NULL,
                 nombre VARCHAR(100) NOT NULL,
                 correo VARCHAR(100) UNIQUE NOT NULL,
                 programa VARCHAR(100) NOT NULL,
@@ -58,19 +56,31 @@ def registro():
         if not documento or not nombre or not correo or not programa or not ficha:
             raise ValueError("Faltan campos obligatorios en el formulario de registro.")
 
-        conn = get_db_connection()
-        cur = conn.cursor()
-        
-        # Apuntando de forma correcta a la tabla 'estudiantes'
-        cur.execute('''
-            INSERT INTO estudiantes (documento, nombre, correo, programa, ficha) 
-            VALUES (%s, %s, %s, %s, %s)
-        ''', (documento, nombre, correo, programa, ficha))
-        
-        conn.commit()
-        cur.close()
-        conn.close()
-        return redirect(url_for('usuarios'))
+        try:
+            conn = get_db_connection()
+            cur = conn.cursor()
+            
+            cur.execute('''
+                INSERT INTO estudiantes (documento, nombre, correo, programme, ficha) 
+                VALUES (%s, %s, %s, %s, %s)
+            ''', (documento, nombre, correo, programa, ficha))
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            return redirect(url_for('usuarios'))
+            
+        except psycopg2.errors.UniqueViolation as unique_error:
+            # Captura específicamente la duplicidad de llaves y avisa de manera controlada
+            print(f"Intento de duplicación controlado: {str(unique_error)}", file=sys.stderr)
+            return f'''
+            <div style="background:#141414; border:1px solid #ffaa00; padding:30px; font-family:sans-serif; color:#fff; text-align:center; margin:50px auto; max-width:500px;">
+                <h2 style="color:#ffaa00;">Usuario ya registrado</h2>
+                <p>El documento de identidad o correo ingresado ya se encuentra en nuestra base de datos.</p>
+                <br>
+                <a href="javascript:history.back()" style="color:#fff; text-decoration:none; border:1px solid #fff; padding:10px 20px;">Intentar con otros datos</a>
+            </div>
+            ''', 400
         
     return render_template('registro.html')
 
@@ -78,11 +88,8 @@ def registro():
 def usuarios():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
-    
-    # Selección de registros desde la tabla correcta 'estudiantes'
     cur.execute('SELECT id, documento, nombre, correo, programa, ficha, fecha_registro FROM estudiantes ORDER BY id DESC;')
     lista_usuarios = cur.fetchall()
-    
     cur.close()
     conn.close()
     return render_template('usuarios.html', usuarios=lista_usuarios)
@@ -125,7 +132,6 @@ def handle_exception(e):
     '''
     return html_error, 500
 
-# Inicializar la tabla estudiantes antes de arrancar la app
 init_db()
 
 if __name__ == '__main__':
