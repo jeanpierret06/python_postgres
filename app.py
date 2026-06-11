@@ -32,7 +32,6 @@ init_db()
 def index():
     return render_template('index.html')
 
-@app.route('/registro', College_methods=['GET', 'POST'])
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
